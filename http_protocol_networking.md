@@ -107,7 +107,18 @@ come out in the same order as their corresponding requests arrived.
 
 ### Caching
 
-Currently studying. Notes will arrive later.
+Cached data corresponds to the local storage of data previously received following 
+a HTTP request.
+
+Broadly speaking, a client makes a HTTP request to a server. The server sends a response.
+The client (usually the browser) can cache the data. When needing a resource it previously
+asked to the server, instead of sending a request, it can simply look for data in its cache.
+
+There exists two kinds of cache: private and shared cache.
+
+Every cache entry has a key and one or multiple HTTP responses. A cache is endowed with a 
+limited lifetime via the Header `Expires`, giving an explicit expiration date to the cached
+data.
 
 ### Redirection
 
