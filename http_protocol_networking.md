@@ -26,8 +26,8 @@ performance matters. Two defining (and not very efficient) pillars of HTTP:
 - A request can only get one resource at a time.
 
 - HTTP is a stateless protocol. Stateless means that HTTP does not require that the
-server keeps information about the client between two requests. Requests are independent
-from each other.
+  server keeps information about the client between two requests. Requests are independent
+  from each other.
 
 E.g.: A web browser (client) asks for a HTML web page. Then as it browses it, it gradually
 asks to the server additional resources (images, icons, etc), creating additional requests.
@@ -36,7 +36,7 @@ asks to the server additional resources (images, icons, etc), creating additiona
 
 HTTP is a subset of a much larger infrastructure called a **network model**.
 
-- OSI (Open System Interconnection) 
+- OSI (Open System Interconnection)
 - TCP/IP
 
 Those two models define layers, each containing its own protocol. OSI is a more exhaustive model
@@ -49,26 +49,25 @@ network model. **HTTP** is a transfer protocol of the application layer of the O
 
 SSL: Secure Sockets Layer
 It offers an encrypted protocol to exchange data. It is now called TLS (Transport
-Layer Security). 
+Layer Security).
 
 HTTPS is a secured variant of HTTP that encapsulates the TLS protocol.
 
 <span style="color:red">HTTP uses the port 80 by default. HTTPS uses the port 443.</span>
-
 
 ### Requests, responses and sessions
 
 Two-step process: the client sends requests to the server, the server sends back responses to
 the clients.
 
-The format used by the HTTP protocol is: 
+The format used by the HTTP protocol is:
 
 - A starting line describing the request and the way it is processed.
 - HTTP headers.
 - One blank line.
 - The message body.
 
-The starting line contains the method (e.g. POST, GET...), the target (e.g. a URL) 
+The starting line contains the method (e.g. POST, GET...), the target (e.g. a URL)
 and the HTTP version which specifies the expected version of the response.
 
 The headers usually contains the size of the request, the language and enables the
@@ -79,6 +78,7 @@ used to retrieve a resource, while **POST** is used to send data to the server. 
 is used to indicate the deletion of a resource.
 
 A list of HTTP statuses:
+
 - **1xx**: temporary responses
 - **2xx**: success
 - **3xx**: redirection
@@ -87,27 +87,27 @@ A list of HTTP statuses:
 
 This cycle requests/responses unfolds in a larger context called a **HTTP session**.
 
-**A session indicates all the exchanges that occurs between the connection and the 
+**A session indicates all the exchanges that occurs between the connection and the
 disconnection by the server**.
 
-The connection is dealt at the transport layer level in the TCP or the OSI model. 
+The connection is dealt at the transport layer level in the TCP or the OSI model.
 HTTP does not deal with connecting the client and the server.
 
 ### The evolution of the HTTP protocol
 
 Different versions of the HTTP protocol: HTTP/0.9, HTTP/1, HTTP/2 and now HTTP/3.
 
-HTTP/2 is inspired from SPDY, a protocol created by Google. HTTP/3 aims at quickly 
+HTTP/2 is inspired from SPDY, a protocol created by Google. HTTP/3 aims at quickly
 loading data pages by establishing a hierarchy between the components of a web page
-(images, style sheets...). 
+(images, style sheets...).
 
-A **multiplexing system** was implemented: send multiple requests in parallel without 
-waiting for the responses of each one (non-blocking). Responses are not expected to 
+A **multiplexing system** was implemented: send multiple requests in parallel without
+waiting for the responses of each one (non-blocking). Responses are not expected to
 come out in the same order as their corresponding requests arrived.
 
 ### Caching
 
-Cached data corresponds to the local storage of data previously received following 
+Cached data corresponds to the local storage of data previously received following
 a HTTP request.
 
 Broadly speaking, a client makes a HTTP request to a server. The server sends a response.
@@ -116,25 +116,39 @@ asked to the server, instead of sending a request, it can simply look for data i
 
 There exists two kinds of cache: private and shared cache.
 
-Every cache entry has a key and one or multiple HTTP responses. A cache is endowed with a 
+Every cache entry has a key and one or multiple HTTP responses. A cache is endowed with a
 limited lifetime via the Header `Expires`, giving an explicit expiration date to the cached
 data.
 
 ### Redirection
 
-Currently studying. Notes will arrive later.
+Redirection occurs when a request is made by the client to the server; the server sends back
+a response with a status code of the form 3xx. The resource the client is looking for has been
+moved, the server can't directly response to the request.
+
+Once the response is returned, the client can decide to create a new request to another server
+found in the `Location` header of the response.
+
+The most common redirections are 301 and 304.
 
 ### Cookies
 
-Currently studying. Notes will arrive later.
+As stated above, HTTP is a stateless protocol, meaning that two requests/responses are supposed
+independent.
 
-### Negotiating HTTP content
+A HTTP cookie is a small piece of data that a server sends to a client in order for the latter
+to send it back in future requests (e.g. site preferences, shopping cart). Cookies are useful to
+manage sessions.
 
-Currently studying. Notes will arrive later.
+In practice, once a request is made by the client, a server can send back a response which
+contains one or more cookies with a specific HTTP Header `Set-Cookie`.
 
-### Conditional requests
+```
+Set-Cookie: SID=14322ac76654aa83; Path=/; Secure; HttpOnly
+Set-Cookie: lang=fr-FR; Path=/; Domain=example.com
+```
 
-Currently studying. Notes will arrive later.
+Cookies contain attributes that define their use case, lifetime duration, etc.
 
 ## Network models
 
