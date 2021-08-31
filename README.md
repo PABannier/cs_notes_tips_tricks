@@ -6,3 +6,4 @@ either learnt while coding or reading stuff on Internet.
 1. HTTP protocol and networking (WIP)
 2. Notes about Git (WIP)
 3. Unix tips and tricks (WIP)
+4. General advice on research (WIP)
