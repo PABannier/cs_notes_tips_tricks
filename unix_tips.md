@@ -64,12 +64,20 @@ download a file from a windowless server.
 
 ## Symbolic links
 
+Unlike a hard link, a symbolic link does not contain the data in the target file. 
+It simply points to another entry somewhere in the file system. This difference 
+gives symbolic links certain qualities that hard links do not have, such as the 
+ability to link to directories, or to files on remote computers networked through NFS. 
+Also, when you delete a target file, symbolic links to that file become unusable, 
+whereas hard links preserve the contents of the file.
+
+Note that when you remove the symbolic link, you don't remove the underlying file.
+
 ```
-ln
+ln -s <SOURCE_FILE> <TARGET_FILE>
 ```
 
-Allows you to create a symbolic link. A symoblic link at a location points to a specific
-file. When you remove the symbolic link, you don't remove the underlying file.
+Allows you to create a symbolic link.
 
 ```
 ls -l
