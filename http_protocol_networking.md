@@ -154,7 +154,20 @@ Cookies contain attributes that define their use case, lifetime duration, etc.
 
 ### OSI and TCP/IP
 
-Currently studying. Notes will arrive later.
+The advantage of using layers in a network model is to be able to modify one layer
+independently from the other. It mitigates the risk of breaking other layers along
+the way. 
+
+OSI: 4 layers.
+TCP/IP: 7 layers.
+
+![OSI and TCP/IP](images/http_protocol_networking/osi_tcp_ip.png)
+
+- Application: the closest from the user. Most of the protocols (SMTP, FTP, **HTTP**)
+are in this layer. This layer purpose is to be establish, synchronise connections between
+machines.
+
+- Presentation: to format transmitted  data.
 
 ### TCP
 
