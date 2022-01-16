@@ -111,4 +111,4 @@ Allows to find files mentioning the criterion.
 
 Cmd + A: set the cursor at the beginning of the line
 Cmd + K: erase the line
-Ctrl + C: interrupt process
+Ctrl + C: interrupt process 
