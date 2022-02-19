@@ -37,6 +37,8 @@ use on a regular basis.
 - `git commit -am`: Adds every modified staged file and commit with a commit message. Combination
   of `git add .` and `git commit -m`.
 
+- `git commit --amend`: When a commit is done, modifies the last message.
+
 ## Misc
 
 - Sometimes, you might want to create new branches without opening a PR (useful for experiments for a paper or a tutorial progress).
