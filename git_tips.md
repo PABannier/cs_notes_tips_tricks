@@ -1,6 +1,6 @@
 # Git commands
 
-This page is certainly not an exhaustive list of all the things you can do with 
+This page is certainly not an exhaustive list of all the things you can do with
 Git. It is merely a personal record of the Git commands I know how to use and might
 use on a regular basis.
 
@@ -8,7 +8,7 @@ use on a regular basis.
 
 - `git checkout <BRANCH_NAME>`: change to the branch.
 
-- `git checkout -b <BRANCH_NAME>`: create a new branch.  
+- `git checkout -b <BRANCH_NAME>`: create a new branch.
 
 - `git stash`: saves the changes in a directory. Useful to pull from a branch and then merge with your own changes.
 
@@ -34,9 +34,12 @@ use on a regular basis.
 
 - `git branch -a`: to see all branches (local and remote)
 
+- `git commit -am`: Adds every modified staged file and commit with a commit message. Combination
+  of `git add .` and `git commit -m`.
+
 ## Misc
 
 - Sometimes, you might want to create new branches without opening a PR (useful for experiments for a paper or a tutorial progress).
 
 - Central idea with Git: have one folder in your local disk where you store branches, forks...
-When working on someone else's PR, just add remote its fork and checkout to its branch.
+  When working on someone else's PR, just add remote its fork and checkout to its branch.
