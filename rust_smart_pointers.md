@@ -60,6 +60,8 @@ struct Node<T> {
 }
 ```
 
+Because `Box<Node<T>>` is a pointer, Rust always know how much space `Box<Node<T>>` will take. It does not vary based on the amount of data it's pointing to. Now the compiler know that the size of an instance of `Node<T>` is the sum of an instance of type `T` and of a box's pointer data. By using a box, we've broken the infinite, recursive chain.
+
 - When you have a large amount of data and you want to transfer ownership, but you want to make sure data is not copied.
 
 The idea here is that by keeping the actual data on the heap, transferring ownership from one variable to another will actually comes down to copying a small amount of pointer data around on the stack, not the actual data on the heap.
@@ -67,3 +69,56 @@ The idea here is that by keeping the actual data on the heap, transferring owner
 - Use it as trait object.
 
 More on this later.
+
+### Creation and destruction of `Box`
+
+Creation:
+
+```
+fn main() {
+    let a = Box::new(5);
+    println!("a = {}", a);
+}
+```
+
+When `a` goes out of scope, the memory on the heap (which stores the actual data) and on the stack (which stores the pointer) will be
+de-allocated.
+
+## Treating smart pointers like regular references with the `Deref` trait
+
+The `Deref` trait allows us to use the `*` operator. This operator is used with references:
+
+```
+let x = 5;
+let y = &x;
+
+assert_eq!(x, 5);
+assert_eq!(*y, 5);
+```
+
+Much the same way, we can write
+
+```
+let x = 5;
+let y = Box::new(x);
+
+assert_eq!(x, 5);
+assert_eq!(*y, 5);
+```
+
+The only difference between these two snippets of code is that in the second case `y` is an instance of a box pointing to a **copied** value of `x`, rather than a reference pointing to the value of `x`.
+
+The `Deref` trait allows us to implement the `deref` method with the following signature:
+
+```
+pub trait Deref {
+    type Target: ?Sized;
+    fn deref(&self) -> &Self::Target;
+}
+```
+
+By implementing the `Deref` trait, `Box` actually returns a reference to `Target` which can then be dereferenced by Rust, since Rust already knows how to dereference a `&` pointer. Strictly speaking, when dereferencing, this happens:
+
+```
+*(y.deref())
+```
