@@ -122,3 +122,9 @@ By implementing the `Deref` trait, `Box` actually returns a reference to `Target
 ```
 *(y.deref())
 ```
+
+## Running code on cleanup with the `Drop` trait
+
+The `Drop` traits lets you customize what happens when a value is about to go out of scope. For example, when `Box<T>` is dropped, it'll deallocate the space on the heap the box points to. This is a powerful trait, since in other languages like C++ smart pointers need to be explicitly dropped in order for memory to be deallocated. Here, Rust automatically handles the cleanup code when a variable is going out of scope.
+
+To manually delete a value, call `std::mem::drop`.
