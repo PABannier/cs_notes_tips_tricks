@@ -140,3 +140,20 @@ For instance, consider a doubly linked list. A node has a previous and a next po
 Note that `Rc<T>` is used in **single-threaded** scenarios.
 
 To increase the reference count, we must clone the smart pointer. Idiomatically, we prefer to use `Rc::clone` instead of `clone` method, since `clone` method is often used to perform deep copy (copy data on the heap), while cloning a smart pointer performs a shallow copy (copy the pointers pointing to the data, that are on the stack).
+
+## `Refcell<T>` and the interior mutability pattern
+
+Interior mutability is a design pattern in Rust that allows to mutate data even when there are immutable references pointing to it, something usually disabled as per borrowing rules.
+
+This mechanism works since the code is considered `unsafe`, meaning that the compiler can't guarantee that it'll not panic at runtime. We must ensure ourself that the borrowing rules will be followed at run time.
+
+Remember the borrowing rules:
+
+- You can have either one mutable reference OR any number number of immutable references.
+- References must be valid.
+
+`Box<T>` and references enforce borrowing rules at **compile time**, while `RefCell<T>` enforces these rules at **runtime**.
+
+`RefCell<T>` must be used in a **single-threaded scenario**.
+
+To generate a mutable reference, we call the method `borrow_mut` on the `RefCell` instance.
