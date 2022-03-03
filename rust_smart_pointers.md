@@ -128,3 +128,15 @@ By implementing the `Deref` trait, `Box` actually returns a reference to `Target
 The `Drop` traits lets you customize what happens when a value is about to go out of scope. For example, when `Box<T>` is dropped, it'll deallocate the space on the heap the box points to. This is a powerful trait, since in other languages like C++ smart pointers need to be explicitly dropped in order for memory to be deallocated. Here, Rust automatically handles the cleanup code when a variable is going out of scope.
 
 To manually delete a value, call `std::mem::drop`.
+
+## `Rc<T>`, the reference counted smart pointer
+
+Most of the time, ownership is clear: one variable has ownership over one value. However, it happens that we need multiple variables to have ownership over one specific value.
+
+For instance, consider a doubly linked list. A node has a previous and a next pointer. But a node has also a previous node pointing forward to it and a next node pointing in a backward fashion to it. Conceptually, that node is owned both by its previous and next neighbors. We need some smart pointers to allow multiple ownership.
+
+`Rc<T>` is a smart pointer (short for _reference counting_) that keeps track the number of references to a specific value. When no reference is pointing to that value, the value can be cleaned up without any references becoming invalid.
+
+Note that `Rc<T>` is used in **single-threaded** scenarios.
+
+To increase the reference count, we must clone the smart pointer. Idiomatically, we prefer to use `Rc::clone` instead of `clone` method, since `clone` method is often used to perform deep copy (copy data on the heap), while cloning a smart pointer performs a shallow copy (copy the pointers pointing to the data, that are on the stack).
