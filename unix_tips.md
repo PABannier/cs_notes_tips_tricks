@@ -112,3 +112,25 @@ Allows to find files mentioning the criterion.
 Cmd + A: set the cursor at the beginning of the line
 Cmd + K: erase the line
 Ctrl + C: interrupt process 
+
+
+## Getting the size of a directory in a human-readable format
+
+When dealing with a bunch of files, it can be useful to run
+
+```
+ls -l --blocksize=MB
+```
+
+to have the size of the files in the specified unit.
+However, it turns out that this command is not suited for recursively
+sizing a directory. To have a human readable output, use
+
+```
+du -sh *
+```
+
+Explanation:
+- **du**: disk usage
+- s: summary
+- h: human-readable output in Byte, KiloByte, etc...
