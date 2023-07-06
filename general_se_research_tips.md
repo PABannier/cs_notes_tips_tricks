@@ -44,7 +44,7 @@ This one is pretty self-explanatory.
 ## Be ruthless on testing
 
 Always write unit and integration tests. It is tempting to write easy tests at the first time
-but you will regret it sooner or later. Always write hard tests and if you relax your test, 
+but you will regret it sooner or later. Always write hard tests and if you relax your test,
 make sure to know why you NEED to relax it.
 
 **When a test is not passing, isolate it in a script and play with it with ipdb to understand the mistake**.
@@ -53,10 +53,10 @@ make sure to know why you NEED to relax it.
 ## Jupyter Notebook is good, Ipython is better
 
 Jupyter Notebook is good for interactive data visualization, and for EDA. However, it is a
-terrible habit to write code in Jupyter Notebook, that takes you away from solid and 
-professional software engineering practices. 
+terrible habit to write code in Jupyter Notebook, that takes you away from solid and
+professional software engineering practices.
 
-A good compromise is **Ipython**. Ipython is simply an interactive Python shell to run your 
+A good compromise is **Ipython**. Ipython is simply an interactive Python shell to run your
 Python scripts. It allows you to run your script, interactively debug and play with in-memory
 variables. A typical setup would be:
 
@@ -79,7 +79,7 @@ Some quick commands:
 Much more customizable shell, that works hand-in-hand with zsh.
 
 
-## Use a Matplotlib visualization kernel 
+## Use a Matplotlib visualization kernel
 
 ```
 ipython --matplotlib=qt
@@ -90,7 +90,7 @@ of your script. To show a figure while your program keeps running, use the optio
 aforementionned.
 
 
-## Use joblib cached memory to speed up code 
+## Use joblib cached memory to speed up code
 
 When your script keeps loading the same data or keep generating the same data in order
 to do calculations with it, cache this data using joblib using:
@@ -119,7 +119,7 @@ from joblib import parallel_backend
 from joblib import Parallel, delayed
 
 INNER_MAX_NUM_THREDS = 1
-N_JOBS = 4 
+N_JOBS = 4
 
 with parallel_backend("loky", inner_max_num_threads=INNER_MAX_NUM_THREADS):
     Parallel(N_JOBS)(
@@ -137,7 +137,7 @@ scripts. Use the `ipdb` module for that. A simple use case is
 # SOME CODE
 import ipdb; ipdb.set_trace()
 # SOME CODE
-``` 
+```
 
 When running the script from ipython, the execution will stop at the desired location
 and let you play with the in-memory variables.
@@ -180,7 +180,7 @@ Pathlib is much more flexible and should be priviledged over `os.path`.
 code on save. However, a cleaner and more wide-spread alternative in open-source
 projects is `flake`.
 
-If a `flake` config file is available, run: 
+If a `flake` config file is available, run:
 
 ```
 make flake
@@ -208,13 +208,13 @@ make pydocstyle
 To profile your code line by line, use `kernprof`. At the time of writing, beware
 that version 3.2.0 of `line_profiler` is broken. Install 3.1.0.
 
-A useful resource for profiling without `kernprof`: 
+A useful resource for profiling without `kernprof`:
 https://lothiraldan.github.io/2018-02-18-python-line-profiler-without-magic/ .
 
 
 ## Github plugin for VSCode
 
-Very classic. Useful to add files to your commit. 
+Very classic. Useful to add files to your commit.
 Note to self: add files with VSCode but do all the git commands directly in shell.
 
 
@@ -226,3 +226,24 @@ to a remote server and develop on a remote machine.
 A more flexible solution is to use Rsync which allows you when generating data
 to have multiple directories on a remote and local machines synced up automatically.
 It is particularly useful when generating figures.
+
+
+## Inspecting your logs post-mortem with `tee`
+
+When launching a script on a remote server, you might find later on that your pod has
+crashed and the process you launched was not able to complete. When faced with this situation,
+you'd like to inspect post-mortem what is the cause of the crash of the server? Is it
+your script specifically? Ideally, you'd like to access the stacktrace of our programs
+or the logs.
+
+One way to do that is to intercept `stdout` and write it into a file with the POSIX
+utility `tee`. This utility allows you to capture the `stdout` of your process and write
+it into a file on disk, something very handy if your script does not already write into a
+log file. Here is basic example below:
+
+```bash
+lint program.c | tee program.lint`
+```
+
+This simple command allows to lint a C file and to pipe the output of the linting process
+into a log file called `program.lint` using `tee`.
